@@ -49,12 +49,10 @@ public class LoanDownloader {
 
             ResponseEntity<Loan[]> response = client.exchange(RequestBuilder.build(endpointUrl, fromDate), HttpMethod.GET, new HttpEntity<Void>(requestHeaders), Loan[].class);
 
-            loans.addAll(Arrays.asList(response.getBody()));
-
             if (response.getStatusCode().value() == 200) {
+                loans.addAll(Arrays.asList(response.getBody()));
 
                 HttpHeaders headers = response.getHeaders();
-
                 Integer total = new Integer(headers.get("X-Total").get(0));
 
                 // check for more pages
